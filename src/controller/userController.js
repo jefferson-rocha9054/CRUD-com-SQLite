@@ -33,6 +33,21 @@ export const newUser = async (req, res)=>{
 
 }
 
+export const getuserid = async (req, res) => {
+    const id = req.params.id 
+    try {
+        const encontrausuario = await prisma.user.findUnique({
+            where: {id: Number(id)}
+        })
+        res.status(200).json(encontrausuario)
+    }catch (error) {
+        res.status(500).json({
+            mensagem: "erro ao buscar usuário",
+            error: error.message
+        })
+    }
+}
+
 export const updateUser = async (req, res) => {
 
     const id = req.params.id
